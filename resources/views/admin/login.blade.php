@@ -48,12 +48,12 @@
                         <h3 class="text-center m-b-20">Ingresar</h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" name="email" placeholder="Email" value="admin@email.com"> 
+                                <input class="form-control" type="text" name="email" placeholder="Email" value="{{ old('email') }}"> 
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input class="form-control" type="password" name="password" placeholder="Contraseña" value="1234567"> </div>
+                                <input class="form-control" type="password" name="password" placeholder="Contraseña"> </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">

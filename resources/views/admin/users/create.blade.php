@@ -20,7 +20,7 @@
 	                <form action="{{ url('/admin/users') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
 	                	{{ csrf_field() }}
 	                	<div class="row">
-	                		<div class="col-lg-6">
+	                		<div class="col-lg-6"> 
 	                			<div class="form-group">
 			                		<label for="name">Nombre Completo</label>
 			                		<input type="text" name="name" id="name" class="form-control">
@@ -34,13 +34,13 @@
 	                		</div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-lg-4">
+	                		<div class="col-lg-3">
 	                			<div class="form-group">
 	                				<label for="born_date">Fecha de nacimiento</label>
 	                				<input type="text" name="born_date" id="born_date" class="form-control mydatepicker" placeholder="dd/mm/yyyy">
 	                			</div>
 	                		</div>
-	                		<div class="col-lg-4">
+	                		<div class="col-lg-3">
 	                			<div class="form-group">
 			                		<label for="gender">Género</label>
 			                		<select name="gender" id="gender" class="form-control">
@@ -50,7 +50,7 @@
 			                		</select>
 			                	</div>
 	                		</div>
-	                		<div class="col-lg-4">
+	                		<div class="col-lg-3">
 	                			<div class="form-group">
 			                		<label for="city">Ciudad</label>
 									<select name="city" id="city" class="form-control">
@@ -61,13 +61,7 @@
 									</select>
 			                	</div>
 	                		</div>
-	                		{{-- <div class="col-lg-4">
-	                			<div class="form-group">
-		                			<label for="cover">Foto de portada</label>
-		                			<input type="file" id="input-file-now" class="dropify" name="avatar" accept="image/*" />
-		                		</div>	
-	                		</div> --}}
-	                		<div class="col-lg-4">
+	                		<div class="col-lg-3">
 	                			<div class="form-group">
 			                		<label for="theme">Temática</label>
 			                		<select name="theme" id="theme" class="form-control">
@@ -78,7 +72,7 @@
 			                		</select>
 			                	</div>
 	                		</div>
-	                		<div class="col-lg-4">
+	                		<div class="col-lg-3">
 	                			<div class="form-group">
 			                		<label for="status">Estatus del usuario</label>
 			                		<select name="status" id="status" class="form-control">
@@ -87,6 +81,12 @@
 			                			<option value="0">Bloqueado</option>
 			                		</select>
 			                	</div>
+	                		</div>
+	                		<div class="col-lg-9">
+	                			<div class="form-group">
+		                			<label for="cover">Foto de portada</label>
+		                			<input type="file" id="input-file-now" class="dropify" name="avatar" accept="image/*" />
+		                		</div>	
 	                		</div>
 	                	</div>
 	                	<div class="form-group">

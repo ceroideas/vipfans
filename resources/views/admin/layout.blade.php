@@ -152,6 +152,17 @@
                         <li> 
                             <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 {{-- <i class="fas fa-users" style="color: #2A2E31"></i> --}}
+                                <img src="{{ asset('/files/team.png') }}" width="25">
+                                <span class="hide-menu" style="color: #2A2E31">Publicaciones</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{ url('/admin/publications') }}">Lista de publicaciones</a></li>
+                                <li><a href="{{ url('/admin/publications/create') }}">Agregar publicación</a></li>
+                            </ul>
+                        </li>
+                        <li> 
+                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                {{-- <i class="fas fa-users" style="color: #2A2E31"></i> --}}
                                 <img src="{{ asset('/files/shopping-bag.png') }}" width="25">
                                 <span class="hide-menu" style="color: #2A2E31">Paquetes</span>
                             </a>

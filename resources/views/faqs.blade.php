@@ -15,7 +15,7 @@
 	</style>
 </head>
 <body>
-	<div class="div_1" style="background-image: linear-gradient(to right, #FF977A , #FDDE61);">
+	{{-- <div class="div_1" style="background-image: linear-gradient(to right, #FF977A , #FDDE61);">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -28,11 +28,16 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	<style>
+		.div-q{
+			background: #999;
+			margin-bottom: 20px;
+			border-radius: 7px;
+		}
 		.div-q a{
 		    text-decoration:none;
-		    color: #7c7c7c;
+		    color: #000;
 		}
 		.div-a{
 		    border: 1px solid white;
@@ -47,7 +52,7 @@
 		}
 	</style>
 	<div class="container">
-		<div class="row">
+		<div class="row" style="margin-left: 0px !important;margin-right: 0px !important;">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
 				<h3>
 					<b>¡Bienvenid@s a VipFans Apk</b>
@@ -59,12 +64,26 @@
 			<div style="height: 70px"></div>
 			@foreach($f as $fa)
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-justify div-q">
-	                <h4>
-	                    <a href="#question_{{ $fa->id }}" data-toggle="collapse">
-	                        <b>{{ $fa->position }}. {{ $fa->title }}</b>
-	                    </a>
-	                </h4>
-	                <div id="question_{{ $fa->id }}" class="collapse div-a">
+					<div class="row">
+						<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10">
+			                <h4>
+			                	{{ $fa->position }}. {{ $fa->title }}
+			                </h4>
+						</div>
+						<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right" style="padding-top: 9px;">
+							<a href="#question_{{ $fa->id }}" data-toggle="collapse" style="margin-top: 10px" onclick="$('#more_{{ $fa->id }}').toggle();$('#less_{{ $fa->id }}').toggle();">
+								<b id="more_{{ $fa->id }}" style="color: #333">
+									►
+								</b>
+								<b id="less_{{ $fa->id }}" style="color:#333;display: none">
+									▼
+								</b>
+							</a>
+						</div>
+					</div>
+	            </div>
+	            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	            	<div id="question_{{ $fa->id }}" class="collapse text-justify">
 	                    <p>
 	                        {{ $fa->answer }}
 	                    </p>

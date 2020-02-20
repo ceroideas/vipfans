@@ -122,6 +122,7 @@
 									<tr>
 										<td id="name_{{ $c->id }}">
 											{{ $c->name }} {{ $c->last_name }}
+											{{-- <img src="{{ $c->avatar }}" alt="" width="100"> --}}
 										</td>
 										<td id="email_{{ $c->id }}">
 											{{ $c->email }}
@@ -131,7 +132,7 @@
 										</td>
 										<td>
 											<div class="btn-group">
-												<a href="#modalEditUser_{{ $c->id }}" class="btn btn-sm btn-warning" data-toggle="modal">
+												<a href="{{ url('/admin/users/'.$c->id.'/edit') }}" class="btn btn-sm btn-warning">
 													Editar
 												</a>
 												<a href="#actBlocUser_{{ $c->id }}" data-toggle="modal" class="btn btn-sm {{ $c->status == 1 ? 'btn-danger' : 'btn-success' }}" id="actBloc_{{ $c->id }}">
@@ -144,22 +145,6 @@
 													Ver detalles
 												</a> --}}
 											</div>
-											<div class="modal fade" id="modalEditUser_{{ $c->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-										        <div class="modal-dialog" role="document">
-										            <div class="modal-content">
-										                <div class="modal-header">
-										                    <h4 class="modal-title" id="exampleModalLabel1">Editar usuario <b>{{ $c->name }} {{ $c->last_name }}</b></h4>
-										                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										                </div>
-										                <div class="modal-body">
-										                	@php
-										                		$city = App\City::where('ubicacionpaisid' , 28)->orderBy('estadonombre' , 'asc')->get();
-										                	@endphp
-										                    @include('admin.users.edit')
-										                </div>
-										            </div>
-										        </div>
-										    </div>
 										    <div class="modal fade" id="actBlocUser_{{ $c->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
 										        <div class="modal-dialog" role="document">
 										            <div class="modal-content">
@@ -196,7 +181,7 @@
 												                    
 												                </div>
 										                	</div>
-										                	<form action="{{ url('/admin/users/credits/'.$c->id) }}" method="POST" autocomplete="off" class="formCredits">
+										                	<form action="{{ url('/admin/users/credits/'.$c->id) }}" method="POST" autocomplete="off">
 										                		{{ csrf_field() }}
 										                		<div class="form-group">
 										                			<label for="likes">Me gusta</label> <br>
@@ -325,7 +310,7 @@
 					});
 				});
 
-				$('.formCredits').on('submit' , function(e){
+				$('.formCreditssd').on('submit' , function(e){
 					e.preventDefault();
 
 					var f = $(this);
@@ -349,7 +334,6 @@
 					.always(function() {
 						console.log("complete");
 					});
-					
 				});
 			});
 		</script>

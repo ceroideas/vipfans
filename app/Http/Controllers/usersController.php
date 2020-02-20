@@ -20,6 +20,8 @@ use App\Exports\UsersExport;
 
 use App\Imports\UsersImport;
 
+use App\Publication;
+
 class usersController extends Controller
 {
     /**
@@ -31,7 +33,8 @@ class usersController extends Controller
     {
         $u = User::where('role' , 2)->get();
         $t = Theme::where('status' , 1)->get();
-        return view('admin.users.index' , compact('u' , 't'));
+        $p = Publication::all();
+        return view('admin.users.index' , compact('u' , 't' , 'p'));
     }
 
     /**
@@ -86,11 +89,11 @@ class usersController extends Controller
         $u->password  = bcrypt('password');
         $u->role      = 2; 
 
-        // if ($request->avatar) {
-        //     $name_avatar = md5(uniqid().$request->avatar->getClientOriginalName()).'.'.$request->avatar->getClientOriginalExtension();
-        //     $u->avatar = $name_avatar;
-        //     $request->avatar->move(public_path().'/files/users/' , $name_avatar);
-        // }
+        if ($request->avatar) {
+            $name_avatar = md5(uniqid().$request->avatar->getClientOriginalName()).'.'.$request->avatar->getClientOriginalExtension();
+            $u->avatar = url('/files/users/'.$name_avatar);
+            $request->avatar->move(public_path().'/files/users/' , $name_avatar);
+        }
 
         $u->save();
 
@@ -131,35 +134,15 @@ class usersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'name'      => 'required',
-        //     'email'     => 'required',
-        //     'born_date' => 'required',
-        //     'gender'    => 'required',
-        //     'city'      => 'required',
-        //     'theme'     => 'required',
-        //     'status'    => 'required',
-        // ] , [
-        //     'name.required'      => 'Ingresa el nombre del usuario',
-        //     'email.required'     => 'Ingresa el email del usuario',
-        //     'born_date.required' => 'Ingresa la fecha de nacimiento del usuario',
-        //     'gender.required'    => 'Selecciona el genero del usuario',
-        //     'city.required'      => 'Selecciona la ciudad del usuario',
-        //     'theme.required'     => 'Selecciona la tematica del usuario',
-        //     'status.required'    => 'Selecciona el estatus del usuario',
-        // ]);
-
-        $rules = [
+        $request->validate([
             'name'      => 'required',
             'email'     => 'required',
             'born_date' => 'required',
             'gender'    => 'required',
             'city'      => 'required',
             'theme'     => 'required',
-            // 'status'    => 'required',
-        ];
-
-        $mess = [
+            'status'    => 'required',
+        ] , [
             'name.required'      => 'Ingresa el nombre del usuario',
             'email.required'     => 'Ingresa el email del usuario',
             'born_date.required' => 'Ingresa la fecha de nacimiento del usuario',
@@ -167,17 +150,37 @@ class usersController extends Controller
             'city.required'      => 'Selecciona la ciudad del usuario',
             'theme.required'     => 'Selecciona la tematica del usuario',
             'status.required'    => 'Selecciona el estatus del usuario',
-        ];
+        ]);
 
-        $v = Validator::make($request->all() , $rules , $mess);
+        // $rules = [
+        //     'name'      => 'required',
+        //     'email'     => 'required',
+        //     'born_date' => 'required',
+        //     'gender'    => 'required',
+        //     'city'      => 'required',
+        //     'theme'     => 'required',
+        //     // 'status'    => 'required',
+        // ];
 
-        if ($v->fails()) {
-            return response()->json([
-                'success' => false,
-                'msj'     => $v->errors()->first(),
-                'id'      => $id
-            ]);
-        }
+        // $mess = [
+        //     'name.required'      => 'Ingresa el nombre del usuario',
+        //     'email.required'     => 'Ingresa el email del usuario',
+        //     'born_date.required' => 'Ingresa la fecha de nacimiento del usuario',
+        //     'gender.required'    => 'Selecciona el genero del usuario',
+        //     'city.required'      => 'Selecciona la ciudad del usuario',
+        //     'theme.required'     => 'Selecciona la tematica del usuario',
+        //     'status.required'    => 'Selecciona el estatus del usuario',
+        // ];
+
+        // $v = Validator::make($request->all() , $rules , $mess);
+
+        // if ($v->fails()) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'msj'     => $v->errors()->first(),
+        //         'id'      => $id
+        //     ]);
+        // }
 
         $date = DateTime::createFromFormat('d/m/Y', $request->born_date);
 
@@ -191,20 +194,20 @@ class usersController extends Controller
         $u->theme     = $request->theme;
         // $u->status    = $request->status;
 
-        // if ($request->avatar) {
-        //     $name_avatar = md5(uniqid().$request->avatar->getClientOriginalName()).'.'.$request->avatar->getClientOriginalExtension();
-        //     $u->avatar = $name_avatar;
-        //     $request->avatar->move(public_path().'/files/users/' , $name_avatar);
-        // }
+        if ($request->avatar) {
+            $name_avatar = md5(uniqid().$request->avatar->getClientOriginalName()).'.'.$request->avatar->getClientOriginalExtension();
+            $u->avatar = url('/files/users/'.$name_avatar);
+            $request->avatar->move(public_path().'/files/users/' , $name_avatar);
+        }
 
         $u->save();
-        return response()->json([
-            'success' => true,
-            'msj'     => 'Usuario actualizado exitosamente',
-            'id'      => $id,
-            'user'    => $u
-        ]);
-        // return back()->with('msj' , 'Usuario actualizado exitosamente');
+        // return response()->json([
+        //     'success' => true,
+        //     'msj'     => 'Usuario actualizado exitosamente',
+        //     'id'      => $id,
+        //     'user'    => $u
+        // ]);
+        return back()->with('msj' , 'Usuario actualizado exitosamente');
     }
 
     /**
@@ -239,11 +242,13 @@ class usersController extends Controller
         $u->magnetism = $r->magnetism;
         $u->save();
 
-        return response()->json([
-            'success' => true,
-            'msj'     => 'Informacion guardada exitosamente',
-            'id'      => $id
-        ]);
+        // return response()->json([
+        //     'success' => true,
+        //     'msj'     => 'Informacion guardada exitosamente',
+        //     'id'      => $id
+        // ]);
+
+        return back()->with('msj' , 'Infornmación guardada exitosamente');
     }
 
     public function filter(Request $r){

@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/faqs/updateStatus/{id}' , 'faqsController@destroy');
         Route::get('/credits/updateStatus/{id}' , 'creditsController@destroy');
         Route::get('/languages/updateStatus/{id}' , 'languagesController@destroy');
+        Route::get('/publications/updateStatus/{id}' , 'publicationsController@destroy');
 
     	Route::post('/likes' , 'adminController@postLike');
         Route::post('/users/credits/{id}' , 'usersController@credits');
@@ -64,5 +65,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/faqs' , 'faqsController');
         Route::resource('/credits' , 'creditsController');
         Route::resource('/languages' , 'languagesController');
+        Route::resource('/publications' , 'publicationsController');
     });
 });

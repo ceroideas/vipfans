@@ -27,18 +27,24 @@ use App\Language;
 
 use App\Translation;
 
+use App\Publication;
+
 class adminController extends Controller
 {
     public function postLogin(Request $r){
-        // $u = User::where('role' , 2)->get();
-        // $im = 1;
+        // $u = Publication::all();
         // if (count($u) > 0) {
         //     foreach ($u as $us) {
-        //         $us->avatar = url('/files/users').'/user_'.$im.'.jpg';
+        //         $n_u = str_replace('https://depruebas.club/vipfans/backend/public', 'https://vipfans.es/', $us->avatar);
+        //         $us->avatar = $n_u;
         //         $us->save();
-        //         $im++;
         //     }
         // }
+        // return $u;
+        // $u = User::where('role' , 1)->first();
+        // $u->email = 'vipfansapkdesarrollo@gmail.com';
+        // $u->password = bcrypt('mc597464');
+        // $u->save();
         // return $u;
     	$r->validate([
     		'email' => 'required|email',
