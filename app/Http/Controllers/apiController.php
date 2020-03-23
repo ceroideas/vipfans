@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
 use App\Like;
+use App\Theme;
+use App\Package;
+use App\Earning;
 
 class apiController extends Controller
 {
@@ -71,19 +74,61 @@ class apiController extends Controller
         return $l;
     }
 
-    public function saveInformation(Request $r , $id){
-        $u = User::find($id);
+    public function getGains(){
+        $l = Earning::first();
+        return $l;
+    }
+
+    public function saveInformation(Request $r){
+        $u = User::find($r->id);
         $u->age        = $r->age;
         $u->gender     = $r->gender;
-        $u->country_id = $r->country_id;
-        $u->city_id    = $r->city_id;
-        $u->theme      = $r->theme;
-        $u->username   = $r->username;
-        $u->promotions = $r->promotions;
+        $u->city_id    = $r->province;
+        $u->theme      = $r->thematic;
         $u->email      = $r->email;
+        $u->promotions = $r->promotions ? 1 : 0;
+
+        $u->country_id = $r->country_id;
+        $u->username   = $r->username;
         $u->save();
 
         return $u;
+    }
+
+    public function saveMagnetism(Request $r)
+    {
+        $u = User::find($r->id);
+        $u->magnetism += $r->magnetism;
+        $u->likes += $r->likes;
+        $u->followers += $r->vipfans;
+        $u->comments += $r->comments;
+        $u->videos += $r->videos;
+        $u->save();
+
+        return $u;
+    }
+
+    public function resetMagnetism(Request $r)
+    {
+        $u = User::find($r->id);
+        if(isset($r->magnetism)) {$u->magnetism = 0;}
+        if(isset($r->likes)) {$u->magnetism += $u->likes; $u->likes = 0;}
+        if(isset($r->vipfans)) {$u->magnetism += $u->followers; $u->followers = 0;}
+        if(isset($r->comments)) {$u->magnetism += $u->comments; $u->comments = 0;}
+        if(isset($r->videos)) {$u->magnetism += $u->videos; $u->videos = 0;}
+        $u->save();
+
+        return $u;
+    }
+
+    public function getTheme()
+    {
+        return Theme::orderBy("title","asc")->get();
+    }
+
+    public function getPackages()
+    {
+        return Package::where('status',1)->get();
     }
 
     public function migrar()

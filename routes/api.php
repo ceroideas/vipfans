@@ -28,6 +28,13 @@ Route::get('/comments/all' , 'apiController@getAllComments');
 Route::get('/videos/all' , 'apiController@getAllVideos');
 Route::get('/restrictions/all' , 'apiController@getAllRestrictions');
 
+Route::get('/theme/all' , 'apiController@getTheme');
+Route::get('/packages/all' , 'apiController@getPackages');
+Route::get('/gains/all' , 'apiController@getGains');
+Route::get('/restrictions/all' , 'apiController@getAllRestrictions');
+
+Route::post('/users/magnetism/add' , 'apiController@saveMagnetism');
+Route::post('/users/magnetism/reset' , 'apiController@resetMagnetism');
 Route::post('/users/add/magnetism/{id}' , 'apiController@addMagnetism');
 Route::post('/users/add' , 'apiController@addShowUser');
-Route::post('/users/saveInformation/{id}' , 'apiController@saveInformation');
+Route::post('/users/saveInformation' , 'apiController@saveInformation');

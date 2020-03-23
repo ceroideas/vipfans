@@ -167,7 +167,7 @@
                                 <span class="hide-menu" style="color: #2A2E31">Paquetes</span>
                             </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="{{ url('/admin/credits') }}">Creditos</a></li>
+                                {{-- <li><a href="{{ url('/admin/credits') }}">Creditos</a></li> --}}
                                 <li><a href="{{ url('/admin/packages') }}">Lista de paquetes</a></li>
                                 <li><a href="{{ url('/admin/packages/create') }}">Agregar paquete</a></li>
                             </ul>

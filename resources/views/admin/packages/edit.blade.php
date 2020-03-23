@@ -45,10 +45,13 @@
 	                			<div class="form-group">
 	                				<label for="credit">Credito</label>
 	                				<select name="credit" id="credit" class="form-control">
-	                					<option value="">Seleccione credito</option>
-	                					@foreach($c as $cr)
-	                						<option value="{{ $cr->id }}" {{ $p->credit == $cr->id ? 'selected' : '' }}>{{ $cr->title }}</option>
-	                					@endforeach
+	                					<option value="" selected disabled></option>
+	                					<option {{ $p->credit == 0 ? 'selected' : '' }} value="0">Likes</option>
+	                					<option {{ $p->credit == 1 ? 'selected' : '' }} value="1">Vipfans</option>
+	                					<option {{ $p->credit == 2 ? 'selected' : '' }} value="2">Commentarios</option>
+	                					<option {{ $p->credit == 3 ? 'selected' : '' }} value="3">Reproducciones</option>
+	                					{{-- @foreach($c as $cr)
+	                					@endforeach --}}
 	                				</select>
 	                			</div>
 	                		</div>
